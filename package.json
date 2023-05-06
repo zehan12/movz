@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/zehan12/movz/issues"
   },
-  "homepage": "https://github.com/zehan12/movz#readme"
+  "homepage": "https://github.com/zehan12/movz#readme",
+  "dependencies": {
+    "concurrently": "^8.0.1",
+    "nodemon": "^2.0.22"
+  }
 }
