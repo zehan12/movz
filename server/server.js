@@ -1,7 +1,8 @@
 // internal imports
 const server = require("./app");
+const config = require("./config/config");
 
-const PORT = 3000;
+const PORT = config.port;
 
 server.listen(PORT,
     () => {
