@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Browse/search for your favorite movies and actors ",
   "main": "server/server.js",
+  "engine": {
+    "node": "20.0.0",
+    "npm": "9.6.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
