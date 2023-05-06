@@ -1,0 +1,19 @@
+{
+  "name": "movz",
+  "version": "1.0.0",
+  "description": "Browse/search for your favorite movies and actors ",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zehan12/movz.git"
+  },
+  "author": "Zehan Khan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zehan12/movz/issues"
+  },
+  "homepage": "https://github.com/zehan12/movz#readme"
+}
