@@ -1,8 +1,9 @@
 const registerRouter = require("express").Router();
+const { handleCreateRegisterUser } = require("../controllers/user.controllers");
 
-registerRouter.get("/",(req,res)=>{
-    console.log(req.method)
-    res.end("user")
-})
+//=================================
+//  Register and create a User
+//=================================
+registerRouter.post("/", handleCreateRegisterUser )
 
 module.exports = registerRouter;
