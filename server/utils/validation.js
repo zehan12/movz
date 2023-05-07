@@ -6,7 +6,7 @@ const isValidEmail = (email) => {
 
 //Password Validation
 const validatePassword = (password) => {
-    if (password.length <= 8 || password === '') {
+    if (password.length <= 5 || password === '') {
         return false;
     } return true;
 };

@@ -7,13 +7,14 @@ const { empty, isValidEmail, validatePassword } = require("../utils/validation")
 // @access    Public
 handleCreateRegisterUser = async ( req, res ) => {
     let { name, lastname, email, password, image } = req.body;
+    console.log(image)
     // convert password into string
     if ( typeof password === "number" ) {
         password = String(password)
     }
     // check fields are not empty("")
-    if  ( empty(name) || empty(lastname) || empty(email) || empty(password) || empty() ) {
-        errorMessage.error = 'Firstname, lastname, email and password field cannot be empty';
+    if  ( empty(name) || empty(lastname) || empty(email) || empty(password) ) {
+        errorMessage.error = 'name, lastname, email and password field cannot be empty';
         return res.status(status.bad).json(errorMessage);
     }
     // check email is valid
@@ -23,7 +24,7 @@ handleCreateRegisterUser = async ( req, res ) => {
     }
     // check password validation
     if (!validatePassword(password)) {
-        errorMessage.error = 'Password must be more than five(8) characters';
+        errorMessage.error = 'Password must be more than five(5) characters';
         return res.status(status.bad).json(errorMessage);
     }
 
@@ -44,7 +45,6 @@ handleCreateRegisterUser = async ( req, res ) => {
         errorMessage.error = `Operation was not successful due to ${error.message}`;
         return res.status(status.error).json(errorMessage);
     }
-
 }
 
 module.exports = {handleCreateRegisterUser};
