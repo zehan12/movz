@@ -1,8 +1,9 @@
+const { handleLogin } = require("../controllers/authenticate.controller");
 const authRouter = require("express").Router();
 
-authRouter.get("/",(req,res)=>{
-    console.log(req.method)
-    res.end("user")
-})
+//=================================
+//  User Login
+//=================================
+authRouter.post("/login", handleLogin);
 
 module.exports = authRouter;

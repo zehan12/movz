@@ -1,5 +1,5 @@
 const registerRouter = require("express").Router();
-const { handleCreateRegisterUser } = require("../controllers/user.controllers");
+const { handleCreateRegisterUser } = require("../controllers/register.controllers");
 
 //=================================
 //  Register and create a User
