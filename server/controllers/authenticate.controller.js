@@ -52,6 +52,24 @@ handleLogin = async ( req, res ) => {
     }
 }
 
+// @route     GET api/v1/authenticate/
+// @desc      check authentication
+// @access    Public
+checkAuth = async (req, res) => {
+        successMessage.user = {
+            _id: req.user._id,
+            isAdmin: req.user.role === 0 ? false : true,
+            isAuth: true,
+            email: req.user.email,
+            name: req.user.name,
+            lastname: req.user.lastname,
+            role: req.user.role,
+            image: req.user.image,
+        }
+        res.status(status.success).json(successMessage);
+} 
+
 module.exports ={
-    handleLogin
+    handleLogin,
+    checkAuth
 }
