@@ -7,7 +7,7 @@ const { empty, isValidEmail, validatePassword } = require("../utils/validation")
 // @access    Public
 handleLogin = async ( req, res ) => {
     let { email, password } = req.body;
-    
+
     if (typeof password === "number") {
         password = String(password);
     }
@@ -36,10 +36,12 @@ handleLogin = async ( req, res ) => {
             errorMessage.error = 'The password you provided is incorrect';
             return res.status(status.bad).json(errorMessage);
         }
-        // let token = await user.signToken();
+        const users = await user.generateToken()
+        await users.save();
         successMessage.message = "user login"
-        successMessage.user = user
-        return res.status(status.success).json(successMessage);
+        successMessage.user = users
+        return  res.cookie("w_authExp", users.tokenExp).cookie("w_auth", users.token)
+            .status(status.success).json(successMessage);
     } catch (error) {
         console.log(error)
         errorMessage.error = `Operation was not successful due to ${error.message}`;

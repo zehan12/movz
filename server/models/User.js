@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const moment = require("moment");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new Schema(
   {
@@ -97,5 +98,26 @@ userSchema.methods.verifyPassword = async function (password) {
       return error;
   }
 };
+
+userSchema.methods.generateToken = async function(cb) {
+  try {
+  var user = this;
+  console.log(cb,user)
+  // console.log('userSchema', userSchema)
+  var token =  await jwt.sign(user._id.toHexString(),'secret')
+  var oneHour = moment().add(1, 'hour').valueOf();
+  console.log(token,"hour")
+
+  user.tokenExp = oneHour;
+  user.token = token;
+  return user
+  } catch (err) {
+    console.log(err.message)
+  }
+  // user.save(function (err, user){
+  //     if(err) return cb(err)
+  //     cb(null, user);
+  // })
+}
 
 module.exports = mongoose.model("User", userSchema);
