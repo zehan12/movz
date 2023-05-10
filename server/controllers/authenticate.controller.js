@@ -69,7 +69,21 @@ checkAuth = async (req, res) => {
         res.status(status.success).json(successMessage);
 } 
 
+// @route     GET api/v1/authenticate/logout
+// @desc      Logout user
+// @access    Public
+handleLogout = async(req,res) => {
+    const user = User.findByIdAndUpdate(req.user._id , { token: "", tokenExp: "" });
+    if (!user){
+        if (err) return res.json({ success: false, err });
+    }
+        return res.status(200).send({
+            success: true
+        });
+}
+
 module.exports ={
     handleLogin,
-    checkAuth
+    checkAuth,
+    handleLogout
 }
