@@ -118,19 +118,4 @@ userSchema.methods.generateToken = async function () {
   }
 };
 
-userSchema.statics.findByToken = async function (token, cb) {
-  var user = this;
-  try {
-    await jwt.verify(token, "secret", function (err, decode) {
-      user.findOne({ _id: decode, token: token }, function (err, user) {
-        if (err) return cb(err);
-        cb(null, user);
-      });
-    });
-  } catch (err) {
-    console.log(err.message);
-    throw new Error("Failed to generate JWT token");
-  }
-};
-
 module.exports = mongoose.model("User", userSchema);
