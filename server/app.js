@@ -1,4 +1,5 @@
 // external lib
+const cookieParser = require("cookie-parser");
 const express = require("express");
 
 const app = express();
@@ -6,6 +7,7 @@ const app = express();
 // configuring middleware needed for authentication
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser())
 
 // setting routes
 app.use("/api/v1/user", require("./routes/user"));

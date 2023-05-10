@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
-const SECRET = config.jwt.secret
+const SECRET = config.jwt.secret;
 
 const userSchema = new Schema(
   {
@@ -94,27 +94,42 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.verifyPassword = async function (password) {
   try {
-      var result = await bcrypt.compare(password, this.password);
-      return result;
+    var result = await bcrypt.compare(password, this.password);
+    return result;
   } catch (error) {
-      return error;
+    return error;
   }
 };
 
 // Generate JWT token
 userSchema.methods.generateToken = async function () {
   try {
-      const user = this;
-      const token = await jwt.sign(user._id.toHexString(), SECRET);
-      const tokenExp = moment().add(1, 'hour').valueOf();
+    const user = this;
+    const token = await jwt.sign(user._id.toHexString(), SECRET);
+    const tokenExp = moment().add(1, "hour").valueOf();
 
-      return {
-          token,
-          tokenExp,
-      };
+    return {
+      token,
+      tokenExp,
+    };
   } catch (err) {
-      console.log(err.message);
-      throw new Error('Failed to generate JWT token');
+    console.log(err.message);
+    throw new Error("Failed to generate JWT token");
+  }
+};
+
+userSchema.statics.findByToken = async function (token, cb) {
+  var user = this;
+  try {
+    await jwt.verify(token, "secret", function (err, decode) {
+      user.findOne({ _id: decode, token: token }, function (err, user) {
+        if (err) return cb(err);
+        cb(null, user);
+      });
+    });
+  } catch (err) {
+    console.log(err.message);
+    throw new Error("Failed to generate JWT token");
   }
 };
 
