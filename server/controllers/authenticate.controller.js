@@ -36,11 +36,14 @@ handleLogin = async ( req, res ) => {
             errorMessage.error = 'The password you provided is incorrect';
             return res.status(status.bad).json(errorMessage);
         }
-        const users = await user.generateToken()
-        await users.save();
+
+        const { tokenExp, token } = await user.generateToken();
+        user.tokenExp = tokenExp;
+        user.token = token;
+        await user.save();
         successMessage.message = "user login"
-        successMessage.user = users
-        return  res.cookie("w_authExp", users.tokenExp).cookie("w_auth", users.token)
+        successMessage.user = user
+        return  res.cookie("w_authExp", user.tokenExp).cookie("w_auth", user.token)
             .status(status.success).json(successMessage);
     } catch (error) {
         console.log(error)

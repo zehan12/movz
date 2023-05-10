@@ -7,7 +7,11 @@ const config = {
         url:process.env.MONGO_URI,
         password:process.env.MONGO_PWD
 
+    },
+    jwt:{
+        secret:process.env.JWT_SECRET
     }
+
 }
 
 module.exports = config

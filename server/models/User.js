@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
+const config = require("../config/config");
+const SECRET = config.jwt.secret
 
 const userSchema = new Schema(
   {
@@ -27,7 +29,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "password required !!"],
       minLength: [5, "isnt is too short !!"],
-      maxlength: 20,
+      maxlength: 90,
     },
     contactNumber: { type: String },
     DOJ: { type: Date },
@@ -99,25 +101,21 @@ userSchema.methods.verifyPassword = async function (password) {
   }
 };
 
-userSchema.methods.generateToken = async function(cb) {
+// Generate JWT token
+userSchema.methods.generateToken = async function () {
   try {
-  var user = this;
-  console.log(cb,user)
-  // console.log('userSchema', userSchema)
-  var token =  await jwt.sign(user._id.toHexString(),'secret')
-  var oneHour = moment().add(1, 'hour').valueOf();
-  console.log(token,"hour")
+      const user = this;
+      const token = await jwt.sign(user._id.toHexString(), SECRET);
+      const tokenExp = moment().add(1, 'hour').valueOf();
 
-  user.tokenExp = oneHour;
-  user.token = token;
-  return user
+      return {
+          token,
+          tokenExp,
+      };
   } catch (err) {
-    console.log(err.message)
+      console.log(err.message);
+      throw new Error('Failed to generate JWT token');
   }
-  // user.save(function (err, user){
-  //     if(err) return cb(err)
-  //     cb(null, user);
-  // })
-}
+};
 
 module.exports = mongoose.model("User", userSchema);
