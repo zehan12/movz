@@ -1,12 +1,12 @@
 import { Fragment, useState } from "react";
 import "./App.css";
-import TailwindComponentForTest from "./TailwindComponentForTest";
+import Login from "./page/Login";
 
 function App() {
 
   return (
     <Fragment>
-      <TailwindComponentForTest />
+      <Login />
     </Fragment>
   );
 }
