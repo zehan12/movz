@@ -5,7 +5,8 @@ const { errorMessage, status } = require("../helpers/status");
 const SECRET = config.jwt.secret;
 
 verifyAuthToken = async (req, res, next) => {
-  let token = req.cookies.w_auth;
+  console.log(req.cookies,"cookies")
+  let token = req.cookies.auth;
   if (!token) {
     errorMessage.error = "Authentication Failed : Token not provided";
     errorMessage.user = { isAuth: false };
