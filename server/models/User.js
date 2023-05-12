@@ -1,4 +1,10 @@
-const { Schema, model } = require("mongoose").Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const bcrypt = require("bcrypt");
+const moment = require("moment");
+const jwt = require("jsonwebtoken");
+const config = require("../config/config");
+const SECRET = config.jwt.secret;
 
 const userSchema = new Schema(
   {
@@ -23,7 +29,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "password required !!"],
       minLength: [5, "isnt is too short !!"],
-      maxlength: 20,
+      maxlength: 90,
     },
     contactNumber: { type: String },
     DOJ: { type: Date },
@@ -50,6 +56,15 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
+    status: {
+      type: Number,
+      default: 1, // 1 OK | 2 Warning | 3 Blocked | 4 Ban
+    },
+    dateJoined: {
+      type: Date,
+      default: Date.now,
+      required: true,
+    },
     image: String,
     token: {
       type: String,
@@ -63,4 +78,44 @@ const userSchema = new Schema(
   }
 );
 
-module.exports = model("User", userSchema);
+userSchema.pre("save", async function (next) {
+  if (this.info.birthday === null) this.info.birthday = "";
+  if (this.image === undefined)
+    this.image = `http://gravatar.com/avatar/${moment().unix()}?d=identicon`;
+
+  console.log("TRIGGERED", this);
+
+  if (this.password && this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10);
+  } else {
+    next();
+  }
+});
+
+userSchema.methods.verifyPassword = async function (password) {
+  try {
+    var result = await bcrypt.compare(password, this.password);
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+// Generate JWT token
+userSchema.methods.generateToken = async function () {
+  try {
+    const user = this;
+    const token = await jwt.sign(user._id.toHexString(), SECRET);
+    const tokenExp = moment().add(1, "hour").valueOf();
+
+    return {
+      token,
+      tokenExp,
+    };
+  } catch (err) {
+    console.log(err.message);
+    throw new Error("Failed to generate JWT token");
+  }
+};
+
+module.exports = mongoose.model("User", userSchema);
