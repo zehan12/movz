@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import "./App.css";
-import Login from "./page/screen/Login";
+import Login from "@view/Login";
+import Register from "./page/screen/Register";
 
 function App() {
-  
   useEffect(() => {
     console.log(import.meta);
     let abortController = new AbortController();
@@ -26,7 +26,8 @@ function App() {
 
   return (
     <Fragment>
-      <Login />
+        <Login />
+        <Register />
     </Fragment>
   );
 }

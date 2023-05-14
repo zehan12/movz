@@ -69,6 +69,9 @@ checkAuth = async (req, res) => {
         return res.status(status.success).json(successMessage);
 } 
 
+// @route     GET api/v1/authenticate/logout
+// @desc      Logout user
+// @access    Public
 handleLogout = async(req,res) => {
     try {
         const user = await User.findByIdAndUpdate(req.user._id , { token: "", tokenExp: "" });
