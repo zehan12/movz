@@ -80,8 +80,8 @@ handleLogout = async(req,res) => {
             return res.status(status.bad).json(errorMessage);
         } else {
             successMessage.message = "user logout";
-            res.clearCookie('auth')
-            req.user = null
+            res.clearCookie('auth', { path: '/authenticate' });
+            res.clearCookie('authExp', { path: '/authenticate' });
             return res.status(status.success).json(successMessage);
         }
     } catch (error) {

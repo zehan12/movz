@@ -28,6 +28,7 @@ function App() {
     <Fragment>
         <Login />
         <Register />
+        <Home />
     </Fragment>
   );
 }
