@@ -1,0 +1,14 @@
+.logo{
+    
+    font:                           bolder 1vw 'Alfa Slab One';
+    font-size: 4rem;
+    text-align:                     center;
+    margin:                         0;
+    background:                     url("https://rpsthecoder.github.io/img-repo/Taitō%20by%20Jezael%20Melgoza.jpg") center;
+    background-size:                contain;
+    margin:                         auto;
+    width:                          15vw;
+    background-clip:                text;
+    -webkit-background-clip:        text;
+    color:                          transparent;
+}
