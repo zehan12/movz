@@ -72,29 +72,6 @@ checkAuth = async (req, res) => {
 // @route     GET api/v1/authenticate/logout
 // @desc      Logout user
 // @access    Public
-// handleLogout = async(req,res) => {
-//     try {
-//     const user = await User.findByIdAndUpdate(req.user._id , { token: "", tokenExp: "" });
-//     console.log(user)
-//     if (!user){
-//         errorMessage.message = "logout failed" 
-//         return res.status(status.bad).json(errorMessage);
-//     } else {
-//         // console.log(res.clearCookie)
-//         res.clearCookie("w_auth")
-//         req.user = {};
-//         successMessage.message = "user logout" 
-//         return res.status(status.success).writeHead({
-//             "Set-Cookie": `auth=""; max-age=0`,
-//         }).json(successMessage);
-//     }
-//     }catch (error) {
-//         console.log(error)
-//         errorMessage.error = `Operation was not successful due to ${error.message}`;
-//         return res.status(status.error).json(errorMessage);
-//     }
-// }
-
 handleLogout = async(req,res) => {
     try {
         const user = await User.findByIdAndUpdate(req.user._id , { token: "", tokenExp: "" });
@@ -103,8 +80,8 @@ handleLogout = async(req,res) => {
             return res.status(status.bad).json(errorMessage);
         } else {
             successMessage.message = "user logout";
-            res.clearCookie('auth')
-            req.user = null
+            res.clearCookie('auth', { path: '/authenticate' });
+            res.clearCookie('authExp', { path: '/authenticate' });
             return res.status(status.success).json(successMessage);
         }
     } catch (error) {
