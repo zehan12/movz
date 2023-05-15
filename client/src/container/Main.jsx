@@ -1,5 +1,6 @@
 import { Fragment, useEffect } from "react";
 import { Button, Result } from 'antd';
+import AllRoutes from "../routes/AllRoutes";
 
 const Main = () => {
     useEffect(() => {
@@ -23,6 +24,7 @@ const Main = () => {
       }, []);    
   return (
     <Fragment>
+      <AllRoutes />
       <Result
         status="success"
         title="Main App!"
