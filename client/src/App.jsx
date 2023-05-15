@@ -1,7 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import "./App.css";
+import Home from "./page/screen/Home";
 import Login from "@view/Login";
 import Register from "./page/screen/Register";
+
 
 function App() {
   useEffect(() => {
@@ -26,9 +28,7 @@ function App() {
 
   return (
     <Fragment>
-        <Login />
-        <Register />
-        <Home />
+        
     </Fragment>
   );
 }
