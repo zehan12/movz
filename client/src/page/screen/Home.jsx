@@ -97,7 +97,7 @@ const Home = () => {
                 d="M16 59c0-23.748 19.252-43 43-43h246c23.748 0 43 19.252 43 43v615c0 23.196-18.804 42-42 42H58c-23.196 0-42-18.804-42-42V59Z"
               />
               <foreignObject
-              className="bg-red-600 overflow-auto no-scroll"
+              className="overflow-auto no-scroll bg-white"
                 width={316}
                 height={684}
                 transform="translate(24 24)"
@@ -121,7 +121,7 @@ const Home = () => {
                   <h1 class="text-2xl  text-white">Footer</h1>
                 </footer>
                 </div>
-                {/* <img src="https://tailwindui.com/img/component-images/mobile-app-screenshot.png" alt="" /> */}
+                <img src="https://tailwindui.com/img/component-images/mobile-app-screenshot.png" alt="" />
               </foreignObject>
             </svg>
           </div>
