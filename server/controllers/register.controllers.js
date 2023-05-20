@@ -6,15 +6,15 @@ const { empty, isValidEmail, validatePassword } = require("../utils/validation")
 // @desc      Register and create a user
 // @access    Public
 handleCreateRegisterUser = async ( req, res ) => {
-    let { name, lastname, email, password, image } = req.body;
-    console.log(image)
+    let { name, lastName, email, password, image } = req.body;
+    console.log(req.body)
     // convert password into string
     if ( typeof password === "number" ) {
         password = String(password)
     }
     // check fields are not empty("")
-    if  ( empty(name) || empty(lastname) || empty(email) || empty(password) ) {
-        errorMessage.error = 'name, lastname, email and password field cannot be empty';
+    if  ( empty(name) || empty(lastName) || empty(email) || empty(password) ) {
+        errorMessage.error = 'name, lastName, email and password field cannot be empty';
         return res.status(status.bad).json(errorMessage);
     }
     // check email is valid
@@ -36,7 +36,7 @@ handleCreateRegisterUser = async ( req, res ) => {
             errorMessage.error = `User with this ${email} already exist`;
             return res.status(status.conflict).json(errorMessage)
         } else {
-            const user = await User.create({ name, lastname, email, password, image })
+            const user = await User.create({ name, lastName, email, password, image })
             successMessage.message = "user created" 
             successMessage.user = user;
             return res.status(status.success).json(successMessage);

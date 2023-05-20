@@ -48,7 +48,7 @@ const userSchema = new Schema(
         enum: ["male", "female", "unspecified"],
       },
     },
-    lastname: {
+    lastName: {
       type: String,
       maxlength: 50,
     },
