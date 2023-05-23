@@ -1,6 +1,7 @@
 import { Fragment, useEffect } from "react";
 import { Button, Result } from "antd";
 import { AuthContextProvider } from "../contexts/auth.context";
+import { UserContextProvider } from "../contexts/user.context";
 import AllRoutes from "../routes/AllRoutes";
 
 const Main = () => {
@@ -26,6 +27,7 @@ const Main = () => {
   return (
     <Fragment>
       <AuthContextProvider>
+        <UserContextProvider>
         <AllRoutes />
         <Result
           status="success"
@@ -38,6 +40,7 @@ const Main = () => {
             <Button key="render">rendered</Button>,
           ]}
         />
+        </UserContextProvider>
       </AuthContextProvider>
     </Fragment>
   );

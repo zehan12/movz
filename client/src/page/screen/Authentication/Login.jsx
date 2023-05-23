@@ -7,13 +7,17 @@ import {
   LOGIN_FORM_VALIDATION_SCHEMA,
 } from "../../../constants/authentication";
 import { AuthContext } from "../../../contexts/auth.context";
-import { LOGIN, LOGOUT } from "../../../actions/types";
+import { useUserState, useUserDispatch } from "../../../contexts/user.context";
+import { LOGIN, LOGOUT, REMOVE_USER, SET_USER } from "../../../actions/types";
 const { Title } = Typography;
 
 
 const Login = ( ) => {
   const navigate = useNavigate();
   const {dispatch,state} = useContext(AuthContext);
+  const userDispatch = useUserDispatch();
+  const userState = useUserState();
+
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
   const [formErrorMessage, setFormErrorMessage] = useState("");
   const [rememberMe, setRememberMe] = useState(rememberMeChecked);
@@ -24,7 +28,7 @@ const Login = ( ) => {
     ? localStorage.getItem("rememberMe")
     : "";
 
-  console.log(dispatch,state,"login")
+  console.log(userState,state)
   return (
     <Fragment>
       <Formik
@@ -55,13 +59,14 @@ const Login = ( ) => {
                 setFormErrorMessage(data.error);
               } else {
                 const { user } = data
-                window.localStorage.setItem("userId", user._id);
+                  window.localStorage.setItem("userId", user._id);
                 if (rememberMe === true) {
                   window.localStorage.setItem("rememberMe", values.email);
                 } else {
                   localStorage.removeItem("rememberMe");
                 }
-                navigate("/")
+                dispatch({type:LOGIN})
+                navigate("/");
               }
             } catch (error) {
               setFormErrorMessage("Check out your Account or Password again");
@@ -89,8 +94,10 @@ const Login = ( ) => {
           return (
             <div className="app">
               <div>
-                <p className="text-xl">{state.isLogedIn.toString()}</p>
-                <button className="bg-blue-500 p-4" onClick={()=>dispatch({type:LOGIN})}>logedin</button>
+                <p className="text-xl">{state.isLogedIn.toString() + " "+userState.user?.name.toString() }</p>
+                <button className="bg-blue-500 p-4" onClick={()=>userDispatch({type:SET_USER,payload:{user:{name:"zehan"}}})}>SET</button>
+                <button className="bg-blue-500 p-4" onClick={()=>userDispatch({type:REMOVE_USER})}>REMOVE</button>
+                <button className="bg-blue-500 p-4" onClick={()=>dispatch({type:LOGIN})}>logedIn</button>
                 <button className="bg-blue-500 p-4" onClick={()=>dispatch({type:LOGOUT})}>logedout</button>
               </div>
               <Title level={3}>Log In</Title>
