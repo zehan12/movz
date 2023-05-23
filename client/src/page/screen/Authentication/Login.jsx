@@ -1,15 +1,19 @@
 import { Form, Input, Button, Checkbox, Typography } from "antd";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import {
   LOGIN_FORM_INITIAL_VALUES,
   LOGIN_FORM_VALIDATION_SCHEMA,
 } from "../../../constants/authentication";
+import { AuthContext } from "../../../contexts/auth.context";
+import { LOGIN, LOGOUT } from "../../../actions/types";
 const { Title } = Typography;
+
 
 const Login = ( ) => {
   const navigate = useNavigate();
+  const {dispatch,state} = useContext(AuthContext);
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
   const [formErrorMessage, setFormErrorMessage] = useState("");
   const [rememberMe, setRememberMe] = useState(rememberMeChecked);
@@ -20,6 +24,7 @@ const Login = ( ) => {
     ? localStorage.getItem("rememberMe")
     : "";
 
+  console.log(dispatch,state,"login")
   return (
     <Fragment>
       <Formik
@@ -83,6 +88,11 @@ const Login = ( ) => {
           } = props;
           return (
             <div className="app">
+              <div>
+                <p className="text-xl">{state.isLogedIn.toString()}</p>
+                <button className="bg-blue-500 p-4" onClick={()=>dispatch({type:LOGIN})}>logedin</button>
+                <button className="bg-blue-500 p-4" onClick={()=>dispatch({type:LOGOUT})}>logedout</button>
+              </div>
               <Title level={3}>Log In</Title>
               <form onSubmit={handleSubmit} style={{ width: "350px" }}>
                 <Form.Item required>
