@@ -104,21 +104,21 @@ const Home = () => {
                 clipPath="url(#2ade4387-9c63-4fc4-b754-10e687a0d332)"
               >
                 <div className="overflow-auto">
-                <header class="bg-amber-400 p-5">
-                  <h1 class="text-2xl">Header</h1>
+                <header className="bg-amber-400 p-5">
+                  <h1 className="text-2xl">Header</h1>
                 </header>
 
-                <div class="bg-white my-5 w-full flex flex-col space-y-4">
-                  <main class="bg-sky-300  px-5 py-40">
-                    <h1 class="text-2xl ">Main Content</h1>
+                <div className="bg-white my-5 w-full flex flex-col space-y-4">
+                  <main className="bg-sky-300  px-5 py-40">
+                    <h1 className="text-2xl ">Main Content</h1>
                   </main>
-                  <aside class="bg-green-300 px-5 py-40">
-                    <h1 class="text-2xl">Sidebar</h1>
+                  <aside className="bg-green-300 px-5 py-40">
+                    <h1 className="text-2xl">Sidebar</h1>
                   </aside>
                 </div>
 
-                <footer class="bg-slate-800 mt-auto p-5">
-                  <h1 class="text-2xl  text-white">Footer</h1>
+                <footer className="bg-slate-800 mt-auto p-5">
+                  <h1 className="text-2xl  text-white">Footer</h1>
                 </footer>
                 </div>
                 <img src="https://tailwindui.com/img/component-images/mobile-app-screenshot.png" alt="" />

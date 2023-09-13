@@ -1,5 +1,4 @@
 import { Fragment, useEffect } from "react";
-import { Button, Result } from "antd";
 import { AuthContextProvider } from "../contexts/auth.context";
 import { UserContextProvider } from "../contexts/user.context";
 import AllRoutes from "../routes/AllRoutes";
@@ -29,17 +28,6 @@ const Main = () => {
       <AuthContextProvider>
         <UserContextProvider>
         <AllRoutes />
-        <Result
-          status="success"
-          title="Main App!"
-          subTitle="main app display"
-          extra={[
-            <Button type="primary" key="console">
-              Go Console
-            </Button>,
-            <Button key="render">rendered</Button>,
-          ]}
-        />
         </UserContextProvider>
       </AuthContextProvider>
     </Fragment>
